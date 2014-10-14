@@ -32,7 +32,7 @@ namespace FlakedTuna
 	{
 	private:
 		std::vector<HMODULE> _libraries;
-		std::vector<std::pair<int, PluginRegistry*>> _registries;
+		registryVector _registries;
 
 		void ClosePluginLibraries();
 

@@ -31,7 +31,7 @@ namespace FlakedTuna
 	std::pair<std::vector<PLUG_HANDLE>, std::vector<std::pair<int, PluginRegistry*>>> GetPluginHandles(std::string directory, std::string extension)
 	{
 		std::vector<PLUG_HANDLE> plugHandles;
-		std::vector<std::pair<int, PluginRegistry*>> regPointers;
+		registryVector regPointers;
 
 		LPWIN32_FIND_DATAA findData = new WIN32_FIND_DATAA;
 		BOOL f_ok = TRUE;

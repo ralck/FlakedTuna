@@ -35,7 +35,7 @@ namespace FlakedTuna
 
 #include <Windows.h>
 
-#define PLUG_HANDLE		HMODULE
+	typedef HMODULE	PLUG_HANDLE;
 
 /*******************************************************
 * *NIX platform specific
@@ -45,13 +45,15 @@ namespace FlakedTuna
 #include <dlfcn.h>
 #include <dirent.h>
 
-#define PLUG_HANDLE		void*
+	typedef void*	PLUG_HANDLE;
 
 #endif
 
 /*******************************************************
 * Non-platform specific code
 *******************************************************/
+	typedef std::vector < std::pair<int, PluginRegistry*>> registryVector;
+
 	typedef PluginRegistry* (*RegFuncPtr)();
 	typedef void (*CloseFuncPtr)();
 	typedef int (*VersionFuncPtr)();

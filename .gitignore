@@ -1,0 +1,12 @@
+Debug/FlakedTuna.lib
+Debug/FlakedTuna.log
+*.tlog
+*.obj
+*.idb
+*.pdb
+*.opensdf
+*.sdf
+*.sln
+*.suo
+FlakedTuna.vcxproj
+*.filters

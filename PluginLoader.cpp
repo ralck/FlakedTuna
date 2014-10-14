@@ -39,7 +39,7 @@ namespace FlakedTuna
 	bool PluginLoader::FindPluginsAtDirectory(std::string additionalDir, std::string extension)
 	{
 		std::vector<PLUG_HANDLE> newLibs;
-		std::vector<std::pair<int, PluginRegistry*>> newRegs;
+		registryVector newRegs;
 
 		std::tie(newLibs, newRegs) = GetPluginHandles(additionalDir, extension);
 

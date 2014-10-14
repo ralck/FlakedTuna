@@ -20,11 +20,13 @@
 #ifndef _PLUGIN_REGISTRY_H_
 #define _PLUGIN_REGISTRY_H_
 
-#include <map>
+#include <exception>
 #include <functional>
+#include <map>
 #include <memory>
 
 // TODO: Look at supporting constructors with parameters
+// TODO: Profile map vs unordered_map
 
 namespace FlakedTuna
 {
@@ -37,8 +39,11 @@ namespace FlakedTuna
 		template <class T, class BaseT>
 		void RegisterPlugin()
 		{
-			// Should think about asserting here if the key already exists.
-			_plugins[typeid(BaseT).name()] = [this]() -> std::shared_ptr<T> { return std::shared_ptr<T>(new T()); };
+			// If key already exists, throw a duplicate plugin exception
+			if (!_plugins.emplace(typeid(BaseT).name(), [this]() { return std::shared_ptr<T>(new T()); }).second())
+			{
+				throw std::runtime_error("ERROR: Base type already defined in this plugin registry.");
+			}
 		}
 
 		template <class BaseT>
