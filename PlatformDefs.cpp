@@ -23,7 +23,7 @@
 namespace FlakedTuna
 {
 
-#ifdef WIN32
+#if defined(_WIN32) || defined(WIN32)
 /*******************************************************
 * Win32 platform specific
 *******************************************************/

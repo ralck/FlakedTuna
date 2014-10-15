@@ -10,3 +10,6 @@ Debug/FlakedTuna.log
 *.suo
 FlakedTuna.vcxproj
 *.filters
+*.ilk
+*.log
+*.exp

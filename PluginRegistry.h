@@ -24,6 +24,7 @@
 #include <functional>
 #include <map>
 #include <memory>
+#include <typeindex>
 
 // TODO: Look at supporting constructors with parameters
 // TODO: Profile map vs unordered_map
@@ -33,14 +34,14 @@ namespace FlakedTuna
 	class PluginRegistry
 	{
 	private:
-		std::map<std::string, std::function<std::shared_ptr<void>()>> _plugins;
+		std::map<std::type_index, std::function<std::shared_ptr<void>()>> _plugins;
 
 	public:
 		template <class T, class BaseT>
 		void RegisterPlugin()
 		{
 			// If key already exists, throw a duplicate plugin exception
-			if (!_plugins.emplace(typeid(BaseT).name(), [this]() { return std::shared_ptr<T>(new T()); }).second())
+			if (!_plugins.emplace(std::type_index(typeid(BaseT)), [this]() { return std::shared_ptr<T>(new T()); }).second)
 			{
 				throw std::runtime_error("ERROR: Base type already defined in this plugin registry.");
 			}
@@ -49,9 +50,9 @@ namespace FlakedTuna
 		template <class BaseT>
 		std::shared_ptr<BaseT> ResolvePlugin()
 		{
-			if (_plugins.find(typeid(BaseT).name()) != _plugins.end())
+			if (_plugins.find(std::type_index(typeid(BaseT))) != _plugins.end())
 			{
-				return std::static_pointer_cast<BaseT>(_plugins[typeid(BaseT).name()]());
+				return std::static_pointer_cast<BaseT>(_plugins[std::type_index(typeid(BaseT))]());
 			}
 			return std::shared_ptr<BaseT>(nullptr);
 		}
