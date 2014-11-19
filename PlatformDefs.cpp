@@ -84,6 +84,7 @@ namespace FlakedTuna
 			f_ok = FindNextFileA(findHandle, findData);
 		}
 
+		delete findData;
 		return std::make_pair(plugHandles, regPointers);
 	}
 
