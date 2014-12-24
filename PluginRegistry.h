@@ -41,7 +41,7 @@ namespace FlakedTuna
 		void RegisterPlugin()
 		{
 			// If key already exists, throw a duplicate plugin exception
-			if (!_plugins.emplace(std::type_index(typeid(BaseT)), [this]() { return std::shared_ptr<T>(new T()); }).second)
+			if (!_plugins.emplace(std::type_index(typeid(BaseT)), [this]() { return std::make_shared<T>(T()); }).second)
 			{
 				throw std::runtime_error("ERROR: Base type already defined in this plugin registry.");
 			}
