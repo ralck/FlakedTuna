@@ -60,10 +60,15 @@ namespace FlakedTuna
 }
 
 
+// Checks
 #define FLAKED_TUNA_DERRIVED( concrete, base )		static_assert(std::is_base_of< base , concrete>::value, "ERROR: FLAKED_TUNA_PLUGIN: Registered concrete type must be of base type.");
+#define FLAKED_TUNA_DEFAULT_CTOR( concrete )		static_assert(!(std::is_default_constructible<concrete>::value), "ERROR: FLAKED_TUNA_PLUGIN: Concrete type is not default constructable.");
+
+// Concatenation of checks
+#define FLAKED_TUNA_CHECKS( concrete, base )		FLAKED_TUNA_DERRIVED( concrete, base ) FLAKED_TUNA_DEFAULT_CTOR( concrete )
 
 #define FLAKED_TUNA_EXPORTS_BEGIN					FlakedTuna::PluginRegistry* pr = nullptr; extern "C" __declspec(dllexport) FlakedTuna::PluginRegistry* GetPluginRegistry() { pr = new FlakedTuna::PluginRegistry();
-#define FLAKED_TUNA_PLUGIN( concrete, base )		FLAKED_TUNA_DERRIVED( concrete, base ) pr->RegisterPlugin< concrete , base >();
+#define FLAKED_TUNA_PLUGIN( concrete, base )		FLAKED_TUNA_CHECKS( concrete, base ) pr->RegisterPlugin< concrete , base >();
 #define FLAKED_TUNA_EXPORTS_END						return pr; } extern "C" __declspec(dllexport) void ClosePluginRegistry() { if(pr != nullptr) { delete pr; } }
 
 #define FLAKED_TUNA_PLUGIN_VERSION( version )		extern "C" __declspec(dllexport) int GetVersion() { return version ; }
