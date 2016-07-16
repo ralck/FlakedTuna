@@ -13,3 +13,4 @@ FlakedTuna.vcxproj
 *.exp
 FlakedTuna.v12.suo
 FlakedTuna.sln
+*.lib

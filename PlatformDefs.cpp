@@ -36,6 +36,11 @@ namespace FlakedTuna
 		LPWIN32_FIND_DATAA findData = new WIN32_FIND_DATAA;
 		BOOL f_ok = TRUE;
 
+		if (directory.length() == 0)
+		{
+			directory.append(".");
+		}
+
 		if (directory.substr(directory.length() - 1, 1) != "\\")
 		{
 			directory.append("\\");
