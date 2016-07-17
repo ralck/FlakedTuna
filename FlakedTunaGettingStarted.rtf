@@ -1152,6 +1152,7 @@ Okay, so it is not really a magical bridge in between.  In reality, it is C styl
 There is also some example code already set up (with Visual Studio solution/project files) that you can examine or try out the pre-compiled versions.  You can find this in the example directory on github.  The example has been updated to compile on Linux, but no make file is included yet.\par
 \par
 \b\fs32 Important Notes:\par
+\b0\fs24 First and foremost, the PluginLoader must remain in memory while your plugins are active.  As shown above, it creates the bridge to your plugin code.  If it is garbage collected while you are still using your plugins, the bridge collapses, all boat traffic is stuck in the harbor, and bad things may happen (i.e. segfault).  TL;DR: Don't delete or let the system garbage collect your PluginLoader while you are using your plugins.\par
 \par
 Secondly, a sometimes overlooked feature of C++ is object instantiation and destruction.  Objects are created in the order they are listed and destructed in the reverse order.  Order of members is important.  The PluginLoader should not be destructed before the objects holding your plugins are.  TL;DR: Put the PluginLoader ahead of your plugin objects so it is destructed last.\par
 }
