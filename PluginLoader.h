@@ -31,7 +31,7 @@ namespace FlakedTuna
 	class PluginLoader
 	{
 	private:
-		std::vector<HMODULE> _libraries;
+		std::vector<PLUG_HANDLE> _libraries;
 		registryVector _registries;
 
 		void ClosePluginLibraries();
