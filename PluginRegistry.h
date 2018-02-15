@@ -41,7 +41,7 @@ namespace FlakedTuna
 		void RegisterPlugin()
 		{
 			// If key already exists, throw a duplicate plugin exception
-			if (!_plugins.emplace(std::type_index(typeid(BaseT)), [this]() { return std::make_shared<T>(T()); }).second)
+			if (!_plugins.emplace(std::type_index(typeid(BaseT)), [this]() { return std::make_shared<T>(); }).second)
 			{
 				throw std::runtime_error("ERROR: Base type already defined in this plugin registry.");
 			}
@@ -72,7 +72,7 @@ namespace FlakedTuna
 
 // Checks
 #define FLAKED_TUNA_DERRIVED( concrete, base )		static_assert(std::is_base_of< base , concrete>::value, "ERROR: FLAKED_TUNA_PLUGIN: Registered concrete type must be of base type.");
-#define FLAKED_TUNA_DEFAULT_CTOR( concrete )		static_assert(!(std::is_default_constructible<concrete>::value), "ERROR: FLAKED_TUNA_PLUGIN: Concrete type is not default constructable.");
+#define FLAKED_TUNA_DEFAULT_CTOR( concrete )		static_assert((std::is_default_constructible<concrete>::value), "ERROR: FLAKED_TUNA_PLUGIN: Concrete type is not default constructable.");
 
 // Concatenation of checks
 #define FLAKED_TUNA_CHECKS( concrete, base )		FLAKED_TUNA_DERRIVED( concrete, base ) FLAKED_TUNA_DEFAULT_CTOR( concrete )

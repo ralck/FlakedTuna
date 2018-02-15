@@ -69,7 +69,7 @@ namespace FlakedTuna
 					PluginRegistry* pluginRegistry = PluginRegistryAddr();
 
 					int pluginVersion = 0;
-					VersionFuncPtr PluginFileVersion = (VersionFuncPtr) GetProcAddress(handle, "GetVersion");
+					VersionFuncPtr PluginFileVersion = (VersionFuncPtr) GetProcAddress(handle, "GetPluginVersion");
 					if (PluginFileVersion != NULL)
 					{
 						pluginVersion = PluginFileVersion();
@@ -177,7 +177,7 @@ namespace FlakedTuna
 					dlerror();
 
 					int pluginVersion = 0;
-					VersionFuncPtr PluginFileVersion = (VersionFuncPtr)dlsym(handle, "GetVersion");
+					VersionFuncPtr PluginFileVersion = (VersionFuncPtr)dlsym(handle, "GetPluginVersion");
 
 					// Check if a version is specified
 					error = dlerror();
